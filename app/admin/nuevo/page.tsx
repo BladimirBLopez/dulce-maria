@@ -1,0 +1,25 @@
+import Link from "next/link";
+import FormularioProducto from "@/components/FormularioProducto";
+
+export default function NuevoProductoPage() {
+  return (
+    <main className="min-h-screen flex-1 bg-cream px-4 py-8 sm:px-8">
+      <div className="mx-auto max-w-lg">
+        <Link
+          href="/admin"
+          className="font-heading text-sm font-semibold text-chocolate-soft hover:text-candy-pink-dark"
+        >
+          ← Volver
+        </Link>
+
+        <h1 className="mt-3 font-script text-4xl text-chocolate">
+          Nuevo producto
+        </h1>
+
+        <div className="mt-6 rounded-3xl bg-white p-6 ring-1 ring-blush">
+          <FormularioProducto />
+        </div>
+      </div>
+    </main>
+  );
+}
