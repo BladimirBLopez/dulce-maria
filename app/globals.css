@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+:root {
+  --color-cream: #fbf1ec;
+  --color-cream-soft: #f6e4dd;
+  --color-chocolate: #4a3428;
+  --color-chocolate-soft: #6b4d3d;
+  --color-candy-pink: #e8799a;
+  --color-candy-pink-dark: #d85c81;
+  --color-blush: #f5c9d6;
+  --color-gold: #d4a94a;
+}
+
+@theme inline {
+  --color-cream: var(--color-cream);
+  --color-cream-soft: var(--color-cream-soft);
+  --color-chocolate: var(--color-chocolate);
+  --color-chocolate-soft: var(--color-chocolate-soft);
+  --color-candy-pink: var(--color-candy-pink);
+  --color-candy-pink-dark: var(--color-candy-pink-dark);
+  --color-blush: var(--color-blush);
+  --color-gold: var(--color-gold);
+
+  --font-script: var(--font-script);
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-chocolate);
+}
+
+.dashed-border {
+  border: 2px dashed var(--color-candy-pink);
+}
