@@ -40,7 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/app/generated/prisma
 
 # prisma skills (auto-generated docs, not needed in repo)
 .claude/
