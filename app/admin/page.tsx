@@ -23,7 +23,17 @@ export default async function AdminPage() {
               Productos
             </h1>
           </div>
-          <BotonCerrarSesion />
+          <div className="flex items-center gap-2">
+            <a
+              href="/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full bg-white px-4 py-2 font-heading text-sm font-semibold text-chocolate-soft ring-1 ring-blush transition hover:bg-cream-soft"
+            >
+              Ver página web
+            </a>
+            <BotonCerrarSesion />
+          </div>
         </div>
 
         <Link
