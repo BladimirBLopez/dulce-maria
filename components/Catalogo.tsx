@@ -47,7 +47,7 @@ export default function Catalogo({ productos, categorias }: Props) {
 
   return (
     <>
-      <div className="mx-auto max-w-md px-4 sm:px-8">
+      <div className="mx-auto max-w-md px-4 pt-8 sm:px-8">
         <div className="relative">
           <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-lg">
             🔍
