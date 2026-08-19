@@ -28,14 +28,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductoPage({ params }: Props) {
   const { id } = await params;
-  const producto = await prisma.producto.findUnique({
-    where: { id },
-    include: { categoria: true },
-  });
+  const [producto, config] = await Promise.all([
+    prisma.producto.findUnique({
+      where: { id },
+      include: { categoria: true },
+    }),
+    prisma.configuracion.findUnique({ where: { id: "config_global" } }),
+  ]);
 
   if (!producto || !producto.disponible) {
     notFound();
   }
+
+  const mostrarPrecios = config?.mostrarPrecios ?? true;
 
   return (
     <main className="flex-1 px-4 py-8 sm:px-8">
@@ -76,9 +81,11 @@ export default async function ProductoPage({ params }: Props) {
               </p>
             )}
 
-            <span className="mt-2 font-heading text-3xl font-bold text-candy-pink-dark">
-              Bs {producto.precio.toFixed(2)}
-            </span>
+            {mostrarPrecios && (
+              <span className="mt-2 font-heading text-3xl font-bold text-candy-pink-dark">
+                Bs {producto.precio.toFixed(2)}
+              </span>
+            )}
 
             <BotonWhatsApp
               producto={producto.nombre}

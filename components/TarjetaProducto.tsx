@@ -10,6 +10,7 @@ type Props = {
   imagenUrl: string;
   categoriaNombre?: string;
   esNuevo?: boolean;
+  mostrarPrecio?: boolean;
 };
 
 export default function TarjetaProducto({
@@ -20,6 +21,7 @@ export default function TarjetaProducto({
   imagenUrl,
   categoriaNombre,
   esNuevo,
+  mostrarPrecio = true,
 }: Props) {
   return (
     <div className="group flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-blush transition hover:-translate-y-0.5 hover:shadow-lg">
@@ -41,9 +43,11 @@ export default function TarjetaProducto({
           </span>
         )}
 
-        <span className="absolute bottom-2 right-2 rounded-full bg-candy-pink px-3 py-1.5 font-heading text-sm font-bold text-white shadow-md">
-          Bs {precio.toFixed(2)}
-        </span>
+        {mostrarPrecio && (
+          <span className="absolute bottom-2 right-2 rounded-full bg-candy-pink px-3 py-1.5 font-heading text-sm font-bold text-white shadow-md">
+            Bs {precio.toFixed(2)}
+          </span>
+        )}
       </Link>
 
       <svg

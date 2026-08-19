@@ -5,19 +5,26 @@ import HeroBanner from "@/components/HeroBanner";
 export const revalidate = 0;
 
 export default async function Home() {
-  const [productos, categorias] = await Promise.all([
+  const [productos, categorias, config] = await Promise.all([
     prisma.producto.findMany({
       where: { disponible: true },
       include: { categoria: true },
       orderBy: { createdAt: "desc" },
     }),
     prisma.categoria.findMany({ orderBy: { orden: "asc" } }),
+    prisma.configuracion.findUnique({ where: { id: "config_global" } }),
   ]);
+
+  const mostrarPrecios = config?.mostrarPrecios ?? true;
 
   return (
     <main className="flex-1">
       <HeroBanner />
-      <Catalogo productos={productos} categorias={categorias} />
+      <Catalogo
+        productos={productos}
+        categorias={categorias}
+        mostrarPrecios={mostrarPrecios}
+      />
     </main>
   );
 }

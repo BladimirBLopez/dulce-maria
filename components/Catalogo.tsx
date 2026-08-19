@@ -28,9 +28,10 @@ function esProductoNuevo(createdAt: Date | string) {
 type Props = {
   productos: Producto[];
   categorias: Categoria[];
+  mostrarPrecios: boolean;
 };
 
-export default function Catalogo({ productos, categorias }: Props) {
+export default function Catalogo({ productos, categorias, mostrarPrecios }: Props) {
   const [busqueda, setBusqueda] = useState("");
   const [categoriaActiva, setCategoriaActiva] = useState<string | null>(null);
 
@@ -111,6 +112,7 @@ export default function Catalogo({ productos, categorias }: Props) {
                 imagenUrl={producto.imagenUrl}
                 categoriaNombre={producto.categoria?.nombre}
                 esNuevo={esProductoNuevo(producto.createdAt)}
+                mostrarPrecio={mostrarPrecios}
               />
             ))}
           </div>

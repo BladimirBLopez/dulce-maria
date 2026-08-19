@@ -3,14 +3,18 @@ import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import BotonCerrarSesion from "@/components/BotonCerrarSesion";
 import BotonEliminarProducto from "@/components/BotonEliminarProducto";
+import ToggleMostrarPrecios from "@/components/ToggleMostrarPrecios";
 
 export const revalidate = 0;
 
 export default async function AdminPage() {
-  const productos = await prisma.producto.findMany({
-    include: { categoria: true },
-    orderBy: { createdAt: "desc" },
-  });
+  const [productos, config] = await Promise.all([
+    prisma.producto.findMany({
+      include: { categoria: true },
+      orderBy: { createdAt: "desc" },
+    }),
+    prisma.configuracion.findUnique({ where: { id: "config_global" } }),
+  ]);
 
   return (
     <main className="min-h-screen flex-1 bg-cream px-4 py-8 sm:px-8">
@@ -40,6 +44,10 @@ export default async function AdminPage() {
             </a>
           </div>
           <BotonCerrarSesion />
+        </div>
+
+        <div className="mt-4">
+          <ToggleMostrarPrecios valorInicial={config?.mostrarPrecios ?? true} />
         </div>
 
         <Link

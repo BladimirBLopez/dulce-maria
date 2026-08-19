@@ -24,6 +24,13 @@ model Producto {
   @@map("productos")
 }
 
+model Configuracion {
+  id             String  @id @default(cuid())
+  mostrarPrecios Boolean @default(true)
+
+  @@map("configuracion")
+}
+
 model Categoria {
   id        String     @id @default(cuid())
   nombre    String     @unique
