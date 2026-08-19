@@ -8,7 +8,7 @@ export default function HeroBanner() {
   return (
     <section className="relative overflow-hidden px-6 pb-16 pt-16 text-center sm:pb-20 sm:pt-24">
       <Image src={FONDO_URL} alt="" fill className="object-cover" priority />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/70 to-cream" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.85)_0%,rgba(0,0,0,0.75)_75%,var(--color-cream)_100%)]" />
 
       <div className="relative z-10">
         <p className="font-heading text-sm font-semibold uppercase tracking-[0.3em] text-gold drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
