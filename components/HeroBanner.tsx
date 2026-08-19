@@ -14,7 +14,7 @@ export default function HeroBanner() {
         className="object-cover"
         priority
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-chocolate/85 via-chocolate/55 to-chocolate/85" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/65 to-black/80" />
 
       <div className="relative z-10">
         <p className="font-heading text-sm font-semibold uppercase tracking-[0.3em] text-gold">
