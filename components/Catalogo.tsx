@@ -93,6 +93,7 @@ export default function Catalogo({ productos, categorias }: Props) {
             {productosFiltrados.map((producto) => (
               <TarjetaProducto
                 key={producto.id}
+                id={producto.id}
                 nombre={producto.nombre}
                 descripcion={producto.descripcion}
                 precio={producto.precio}

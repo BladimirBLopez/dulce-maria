@@ -1,7 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
 import BotonWhatsApp from "./BotonWhatsApp";
 
 type Props = {
+  id: string;
   nombre: string;
   descripcion: string | null;
   precio: number;
@@ -10,6 +12,7 @@ type Props = {
 };
 
 export default function TarjetaProducto({
+  id,
   nombre,
   descripcion,
   precio,
@@ -18,7 +21,7 @@ export default function TarjetaProducto({
 }: Props) {
   return (
     <div className="group flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-blush transition hover:shadow-md">
-      <div className="relative aspect-square w-full overflow-hidden bg-cream-soft">
+      <Link href={`/producto/${id}`} className="relative aspect-square w-full overflow-hidden bg-cream-soft">
         <Image
           src={imagenUrl}
           alt={nombre}
@@ -26,7 +29,7 @@ export default function TarjetaProducto({
           className="object-cover transition duration-300 group-hover:scale-105"
           sizes="(max-width: 768px) 50vw, 25vw"
         />
-      </div>
+      </Link>
 
       <div className="mx-4 mt-3 border-t-2 border-dashed border-blush" />
 
@@ -36,9 +39,11 @@ export default function TarjetaProducto({
             {categoriaNombre}
           </span>
         )}
-        <h3 className="font-heading text-lg font-semibold leading-tight text-chocolate">
-          {nombre}
-        </h3>
+        <Link href={`/producto/${id}`}>
+          <h3 className="font-heading text-lg font-semibold leading-tight text-chocolate hover:text-candy-pink-dark">
+            {nombre}
+          </h3>
+        </Link>
         {descripcion && (
           <p className="line-clamp-2 text-sm text-chocolate-soft">
             {descripcion}
