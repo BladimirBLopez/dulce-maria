@@ -29,9 +29,9 @@ export default async function Home() {
           Chocolates, gomitas y snacks importados directo a tu antojo.
           Elige tu favorito y pide por WhatsApp.
         </p>
-      </section>
 
-      <FranjaBeneficios />
+        <FranjaBeneficios />
+      </section>
 
       <Catalogo productos={productos} categorias={categorias} />
     </main>
