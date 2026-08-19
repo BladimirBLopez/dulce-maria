@@ -2,6 +2,8 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import FormularioProducto from "@/components/FormularioProducto";
 
+export const revalidate = 0;
+
 export default async function NuevoProductoPage() {
   const categorias = await prisma.categoria.findMany({
     orderBy: { orden: "asc" },

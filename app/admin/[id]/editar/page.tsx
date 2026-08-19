@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import FormularioProducto from "@/components/FormularioProducto";
 
+export const revalidate = 0;
+
 export default async function EditarProductoPage({
   params,
 }: {
