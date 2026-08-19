@@ -22,24 +22,24 @@ export default async function AdminPage() {
           <h1 className="font-script text-4xl text-chocolate">Productos</h1>
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center gap-2">
-          <Link
-            href="/admin/categorias"
-            className="rounded-full bg-white px-4 py-2 font-heading text-sm font-semibold text-chocolate-soft ring-1 ring-blush transition hover:bg-cream-soft"
-          >
-            🏷️ Categorías
-          </Link>
-          <a
-            href="/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full bg-white px-4 py-2 font-heading text-sm font-semibold text-chocolate-soft ring-1 ring-blush transition hover:bg-cream-soft"
-          >
-            🌐 Ver página web
-          </a>
-          <div className="ml-auto">
-            <BotonCerrarSesion />
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href="/admin/categorias"
+              className="rounded-full bg-white px-4 py-2 font-heading text-sm font-semibold text-chocolate-soft ring-1 ring-blush transition hover:bg-cream-soft"
+            >
+              🏷️ Categorías
+            </Link>
+            <a
+              href="/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full bg-white px-4 py-2 font-heading text-sm font-semibold text-chocolate-soft ring-1 ring-blush transition hover:bg-cream-soft"
+            >
+              🌐 Ver página web
+            </a>
           </div>
+          <BotonCerrarSesion />
         </div>
 
         <Link
