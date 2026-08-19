@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import Catalogo from "@/components/Catalogo";
+import DecoracionAcuarela from "@/components/DecoracionAcuarela";
+import FranjaBeneficios from "@/components/FranjaBeneficios";
 
 export const revalidate = 0;
 
@@ -16,6 +18,7 @@ export default async function Home() {
   return (
     <main className="flex-1">
       <section className="relative overflow-hidden px-6 pb-8 pt-12 text-center sm:pt-16">
+        <DecoracionAcuarela />
         <p className="font-heading text-sm font-semibold uppercase tracking-[0.3em] text-gold">
           Dulces Americanos
         </p>
@@ -27,6 +30,8 @@ export default async function Home() {
           Elige tu favorito y pide por WhatsApp.
         </p>
       </section>
+
+      <FranjaBeneficios />
 
       <Catalogo productos={productos} categorias={categorias} />
     </main>

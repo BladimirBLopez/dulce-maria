@@ -41,12 +41,15 @@ export default function Catalogo({ productos, categorias }: Props) {
     <>
       <div className="mx-auto max-w-md px-4 sm:px-8">
         <div className="relative">
+          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-lg">
+            🔍
+          </span>
           <input
             type="text"
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
             placeholder="Buscar un dulce..."
-            className="w-full rounded-full border border-blush bg-white px-5 py-3 font-body text-chocolate outline-none focus:border-candy-pink"
+            className="w-full rounded-full border-2 border-blush bg-white py-3 pl-11 pr-5 font-body text-chocolate shadow-sm outline-none focus:border-candy-pink"
           />
         </div>
       </div>
@@ -55,22 +58,22 @@ export default function Catalogo({ productos, categorias }: Props) {
         <div className="mt-4 flex gap-2 overflow-x-auto px-4 pb-2 sm:justify-center sm:px-8">
           <button
             onClick={() => setCategoriaActiva(null)}
-            className={`flex-shrink-0 rounded-full px-4 py-2 font-heading text-sm font-semibold transition ${
+            className={`flex-shrink-0 rounded-full border-2 px-4 py-2 font-heading text-sm font-semibold transition ${
               !categoriaActiva
-                ? "bg-candy-pink text-white"
-                : "bg-white text-chocolate-soft ring-1 ring-blush hover:bg-blush"
+                ? "border-candy-pink-dark bg-candy-pink text-white shadow-sm"
+                : "border-blush bg-white text-chocolate-soft hover:border-candy-pink hover:bg-blush"
             }`}
           >
-            Todos
+            🍭 Todos
           </button>
           {categorias.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setCategoriaActiva(cat.id)}
-              className={`flex-shrink-0 rounded-full px-4 py-2 font-heading text-sm font-semibold transition ${
+              className={`flex-shrink-0 rounded-full border-2 px-4 py-2 font-heading text-sm font-semibold transition ${
                 categoriaActiva === cat.id
-                  ? "bg-candy-pink text-white"
-                  : "bg-white text-chocolate-soft ring-1 ring-blush hover:bg-blush"
+                  ? "border-candy-pink-dark bg-candy-pink text-white shadow-sm"
+                  : "border-blush bg-white text-chocolate-soft hover:border-candy-pink hover:bg-blush"
               }`}
             >
               {cat.nombre}
