@@ -1,22 +1,12 @@
 import { prisma } from "@/lib/prisma";
-import TarjetaProducto from "@/components/TarjetaProducto";
-import FiltroCategorias from "@/components/FiltroCategorias";
+import Catalogo from "@/components/Catalogo";
 
 export const revalidate = 0;
 
-type Props = {
-  searchParams: Promise<{ categoria?: string }>;
-};
-
-export default async function Home({ searchParams }: Props) {
-  const { categoria } = await searchParams;
-
+export default async function Home() {
   const [productos, categorias] = await Promise.all([
     prisma.producto.findMany({
-      where: {
-        disponible: true,
-        ...(categoria ? { categoriaId: categoria } : {}),
-      },
+      where: { disponible: true },
       include: { categoria: true },
       orderBy: { createdAt: "desc" },
     }),
@@ -25,7 +15,7 @@ export default async function Home({ searchParams }: Props) {
 
   return (
     <main className="flex-1">
-      <section className="relative overflow-hidden px-6 pb-8 pt-16 text-center sm:pt-24">
+      <section className="relative overflow-hidden px-6 pb-8 pt-12 text-center sm:pt-16">
         <p className="font-heading text-sm font-semibold uppercase tracking-[0.3em] text-gold">
           Dulces Americanos
         </p>
@@ -38,30 +28,7 @@ export default async function Home({ searchParams }: Props) {
         </p>
       </section>
 
-      <FiltroCategorias categorias={categorias} categoriaActiva={categoria} />
-
-      <section className="px-4 pb-20 pt-6 sm:px-8">
-        {productos.length === 0 ? (
-          <div className="mx-auto max-w-md rounded-3xl bg-white/60 p-10 text-center ring-1 ring-blush">
-            <p className="font-heading text-lg text-chocolate-soft">
-              Muy pronto vas a encontrar aquí todos nuestros dulces 🍭
-            </p>
-          </div>
-        ) : (
-          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4">
-            {productos.map((producto) => (
-              <TarjetaProducto
-                key={producto.id}
-                nombre={producto.nombre}
-                descripcion={producto.descripcion}
-                precio={producto.precio}
-                imagenUrl={producto.imagenUrl}
-                categoriaNombre={producto.categoria?.nombre}
-              />
-            ))}
-          </div>
-        )}
-      </section>
+      <Catalogo productos={productos} categorias={categorias} />
     </main>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Caveat, Baloo_2, Quicksand } from "next/font/google";
 import "./globals.css";
+import SiteChrome from "@/components/SiteChrome";
 
 const caveat = Caveat({
   variable: "--font-script",
@@ -33,7 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${caveat.variable} ${baloo.variable} ${quicksand.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-cream text-chocolate font-body">
-        {children}
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );

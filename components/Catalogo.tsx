@@ -1,0 +1,108 @@
+"use client";
+
+import { useState, useMemo } from "react";
+import TarjetaProducto from "./TarjetaProducto";
+
+type Categoria = {
+  id: string;
+  nombre: string;
+};
+
+type Producto = {
+  id: string;
+  nombre: string;
+  descripcion: string | null;
+  precio: number;
+  imagenUrl: string;
+  categoria: Categoria | null;
+};
+
+type Props = {
+  productos: Producto[];
+  categorias: Categoria[];
+};
+
+export default function Catalogo({ productos, categorias }: Props) {
+  const [busqueda, setBusqueda] = useState("");
+  const [categoriaActiva, setCategoriaActiva] = useState<string | null>(null);
+
+  const productosFiltrados = useMemo(() => {
+    return productos.filter((p) => {
+      const coincideCategoria =
+        !categoriaActiva || p.categoria?.id === categoriaActiva;
+      const coincideBusqueda = p.nombre
+        .toLowerCase()
+        .includes(busqueda.trim().toLowerCase());
+      return coincideCategoria && coincideBusqueda;
+    });
+  }, [productos, busqueda, categoriaActiva]);
+
+  return (
+    <>
+      <div className="mx-auto max-w-md px-4 sm:px-8">
+        <div className="relative">
+          <input
+            type="text"
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+            placeholder="Buscar un dulce..."
+            className="w-full rounded-full border border-blush bg-white px-5 py-3 font-body text-chocolate outline-none focus:border-candy-pink"
+          />
+        </div>
+      </div>
+
+      {categorias.length > 0 && (
+        <div className="mt-4 flex gap-2 overflow-x-auto px-4 pb-2 sm:justify-center sm:px-8">
+          <button
+            onClick={() => setCategoriaActiva(null)}
+            className={`flex-shrink-0 rounded-full px-4 py-2 font-heading text-sm font-semibold transition ${
+              !categoriaActiva
+                ? "bg-candy-pink text-white"
+                : "bg-white text-chocolate-soft ring-1 ring-blush hover:bg-blush"
+            }`}
+          >
+            Todos
+          </button>
+          {categorias.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setCategoriaActiva(cat.id)}
+              className={`flex-shrink-0 rounded-full px-4 py-2 font-heading text-sm font-semibold transition ${
+                categoriaActiva === cat.id
+                  ? "bg-candy-pink text-white"
+                  : "bg-white text-chocolate-soft ring-1 ring-blush hover:bg-blush"
+              }`}
+            >
+              {cat.nombre}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <section className="px-4 pb-20 pt-6 sm:px-8">
+        {productosFiltrados.length === 0 ? (
+          <div className="mx-auto max-w-md rounded-3xl bg-white/60 p-10 text-center ring-1 ring-blush">
+            <p className="font-heading text-lg text-chocolate-soft">
+              {productos.length === 0
+                ? "Muy pronto vas a encontrar aquí todos nuestros dulces 🍭"
+                : "No encontramos dulces con ese nombre 🔍"}
+            </p>
+          </div>
+        ) : (
+          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4">
+            {productosFiltrados.map((producto) => (
+              <TarjetaProducto
+                key={producto.id}
+                nombre={producto.nombre}
+                descripcion={producto.descripcion}
+                precio={producto.precio}
+                imagenUrl={producto.imagenUrl}
+                categoriaNombre={producto.categoria?.nombre}
+              />
+            ))}
+          </div>
+        )}
+      </section>
+    </>
+  );
+}
