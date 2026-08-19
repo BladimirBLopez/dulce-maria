@@ -1,14 +1,20 @@
+import Image from "next/image";
 import Link from "next/link";
+
+const LOGO_URL =
+  "https://res.cloudinary.com/dkq95jus0/image/upload/v1787158940/logo-recortado_t7mna7.png";
 
 export default function Navbar() {
   return (
     <header className="sticky top-0 z-40 border-b border-blush/60 bg-cream/90 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-8">
-        <Link
-          href="/"
-          className="font-script text-3xl leading-none text-chocolate"
-        >
-          Dulce María
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2 sm:px-8">
+        <Link href="/" className="relative h-14 w-14 sm:h-16 sm:w-16">
+          <Image
+            src={LOGO_URL}
+            alt="Dulce María"
+            fill
+            className="object-contain"
+          />
         </Link>
         <a
           href="https://wa.me/59175084630"
