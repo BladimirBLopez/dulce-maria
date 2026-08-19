@@ -65,7 +65,7 @@ export default function TarjetaProducto({
           </span>
         )}
         <Link href={`/producto/${id}`}>
-          <h3 className="font-heading text-lg font-semibold leading-tight text-chocolate hover:text-candy-pink-dark">
+          <h3 className="line-clamp-2 font-heading text-lg font-semibold leading-tight text-chocolate hover:text-candy-pink-dark">
             {nombre}
           </h3>
         </Link>
