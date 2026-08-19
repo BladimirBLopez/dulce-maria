@@ -15,7 +15,15 @@ type Producto = {
   precio: number;
   imagenUrl: string;
   categoria: Categoria | null;
+  createdAt: Date | string;
 };
+
+const SIETE_DIAS_MS = 7 * 24 * 60 * 60 * 1000;
+
+function esProductoNuevo(createdAt: Date | string) {
+  const fecha = new Date(createdAt).getTime();
+  return Date.now() - fecha < SIETE_DIAS_MS;
+}
 
 type Props = {
   productos: Producto[];
@@ -102,6 +110,7 @@ export default function Catalogo({ productos, categorias }: Props) {
                 precio={producto.precio}
                 imagenUrl={producto.imagenUrl}
                 categoriaNombre={producto.categoria?.nombre}
+                esNuevo={esProductoNuevo(producto.createdAt)}
               />
             ))}
           </div>

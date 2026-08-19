@@ -9,6 +9,7 @@ type Props = {
   precio: number;
   imagenUrl: string;
   categoriaNombre?: string;
+  esNuevo?: boolean;
 };
 
 export default function TarjetaProducto({
@@ -18,10 +19,14 @@ export default function TarjetaProducto({
   precio,
   imagenUrl,
   categoriaNombre,
+  esNuevo,
 }: Props) {
   return (
-    <div className="group flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-blush transition hover:shadow-md">
-      <Link href={`/producto/${id}`} className="relative aspect-square w-full overflow-hidden bg-cream-soft">
+    <div className="group flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-blush transition hover:-translate-y-0.5 hover:shadow-lg">
+      <Link
+        href={`/producto/${id}`}
+        className="relative block aspect-square w-full overflow-hidden bg-cream-soft"
+      >
         <Image
           src={imagenUrl}
           alt={nombre}
@@ -29,13 +34,33 @@ export default function TarjetaProducto({
           className="object-cover transition duration-300 group-hover:scale-105"
           sizes="(max-width: 768px) 50vw, 25vw"
         />
+
+        {esNuevo && (
+          <span className="absolute left-2 top-2 rounded-full bg-gold px-2.5 py-1 font-heading text-[10px] font-bold uppercase tracking-wide text-white shadow">
+            Nuevo
+          </span>
+        )}
+
+        <span className="absolute bottom-2 right-2 rounded-full bg-candy-pink px-3 py-1.5 font-heading text-sm font-bold text-white shadow-md">
+          Bs {precio.toFixed(2)}
+        </span>
       </Link>
 
-      <div className="mx-4 mt-3 border-t-2 border-dashed border-blush" />
+      <svg
+        className="block w-full text-white"
+        viewBox="0 0 200 8"
+        preserveAspectRatio="none"
+        style={{ height: 8 }}
+      >
+        <path
+          d="M0,0 Q5,8 10,0 T20,0 T30,0 T40,0 T50,0 T60,0 T70,0 T80,0 T90,0 T100,0 T110,0 T120,0 T130,0 T140,0 T150,0 T160,0 T170,0 T180,0 T190,0 T200,0 V8 H0 Z"
+          fill="currentColor"
+        />
+      </svg>
 
-      <div className="flex flex-1 flex-col gap-1.5 p-4 pt-3">
+      <div className="flex flex-1 flex-col gap-1.5 px-4 pb-4 pt-1">
         {categoriaNombre && (
-          <span className="font-heading text-xs font-bold uppercase tracking-wider text-gold">
+          <span className="inline-flex w-fit items-center gap-1 rounded-full bg-blush/60 px-2.5 py-0.5 font-heading text-[10px] font-bold uppercase tracking-wider text-candy-pink-dark">
             {categoriaNombre}
           </span>
         )}
@@ -49,14 +74,10 @@ export default function TarjetaProducto({
             {descripcion}
           </p>
         )}
-        <div className="mt-auto flex items-center justify-between pt-2">
-          <span className="font-heading text-xl font-bold text-candy-pink-dark">
-            Bs {precio.toFixed(2)}
-          </span>
-        </div>
+
         <BotonWhatsApp
           producto={nombre}
-          className="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-candy-pink px-4 py-2 text-sm font-heading font-semibold text-white transition hover:bg-candy-pink-dark"
+          className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-full bg-candy-pink px-4 py-2.5 text-sm font-heading font-semibold text-white transition hover:bg-candy-pink-dark"
         />
       </div>
     </div>
