@@ -14,11 +14,9 @@ export default async function Home() {
     prisma.categoria.findMany({ orderBy: { orden: "asc" } }),
   ]);
 
-  const imagenesProductos = productos.map((p) => p.imagenUrl);
-
   return (
     <main className="flex-1">
-      <HeroBanner imagenesProductos={imagenesProductos} />
+      <HeroBanner />
       <Catalogo productos={productos} categorias={categorias} />
     </main>
   );
