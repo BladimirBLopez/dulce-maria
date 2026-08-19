@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 export async function GET() {
-  const productos = await prisma.producto.findMany({
-    orderBy: { createdAt: "desc" },
+  const categorias = await prisma.categoria.findMany({
+    orderBy: { orden: "asc" },
   });
-  return NextResponse.json(productos);
+  return NextResponse.json(categorias);
 }
 
 export async function POST(request: NextRequest) {
@@ -16,16 +16,17 @@ export async function POST(request: NextRequest) {
 
   const data = await request.json();
 
-  const producto = await prisma.producto.create({
+  const ultimaCategoria = await prisma.categoria.findFirst({
+    orderBy: { orden: "desc" },
+  });
+  const siguienteOrden = (ultimaCategoria?.orden ?? 0) + 1;
+
+  const categoria = await prisma.categoria.create({
     data: {
       nombre: data.nombre,
-      descripcion: data.descripcion || null,
-      precio: parseFloat(data.precio),
-      imagenUrl: data.imagenUrl,
-      disponible: data.disponible ?? true,
-      categoriaId: data.categoriaId || null,
+      orden: siguienteOrden,
     },
   });
 
-  return NextResponse.json(producto, { status: 201 });
+  return NextResponse.json(categoria, { status: 201 });
 }

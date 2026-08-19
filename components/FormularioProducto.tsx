@@ -11,13 +11,20 @@ type Producto = {
   precio: number;
   imagenUrl: string;
   disponible: boolean;
+  categoriaId: string | null;
+};
+
+type Categoria = {
+  id: string;
+  nombre: string;
 };
 
 type Props = {
   producto?: Producto;
+  categorias: Categoria[];
 };
 
-export default function FormularioProducto({ producto }: Props) {
+export default function FormularioProducto({ producto, categorias }: Props) {
   const router = useRouter();
   const esEdicion = Boolean(producto);
 
@@ -26,6 +33,7 @@ export default function FormularioProducto({ producto }: Props) {
   const [precio, setPrecio] = useState(producto?.precio?.toString() ?? "");
   const [imagenUrl, setImagenUrl] = useState(producto?.imagenUrl ?? "");
   const [disponible, setDisponible] = useState(producto?.disponible ?? true);
+  const [categoriaId, setCategoriaId] = useState(producto?.categoriaId ?? "");
   const [guardando, setGuardando] = useState(false);
   const [error, setError] = useState("");
 
@@ -48,7 +56,14 @@ export default function FormularioProducto({ producto }: Props) {
     const res = await fetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nombre, descripcion, precio, imagenUrl, disponible }),
+      body: JSON.stringify({
+        nombre,
+        descripcion,
+        precio,
+        imagenUrl,
+        disponible,
+        categoriaId: categoriaId || null,
+      }),
     });
 
     setGuardando(false);
@@ -74,6 +89,22 @@ export default function FormularioProducto({ producto }: Props) {
           className="mt-1 w-full rounded-xl border border-blush bg-cream-soft px-4 py-2.5 font-body text-chocolate outline-none focus:border-candy-pink"
           required
         />
+      </label>
+
+      <label className="block font-heading text-sm font-semibold text-chocolate-soft">
+        Categoría
+        <select
+          value={categoriaId}
+          onChange={(e) => setCategoriaId(e.target.value)}
+          className="mt-1 w-full rounded-xl border border-blush bg-cream-soft px-4 py-2.5 font-body text-chocolate outline-none focus:border-candy-pink"
+        >
+          <option value="">Sin categoría</option>
+          {categorias.map((cat) => (
+            <option key={cat.id} value={cat.id}>
+              {cat.nombre}
+            </option>
+          ))}
+        </select>
       </label>
 
       <label className="block font-heading text-sm font-semibold text-chocolate-soft">

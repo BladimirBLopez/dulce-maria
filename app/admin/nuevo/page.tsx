@@ -1,7 +1,12 @@
 import Link from "next/link";
+import { prisma } from "@/lib/prisma";
 import FormularioProducto from "@/components/FormularioProducto";
 
-export default function NuevoProductoPage() {
+export default async function NuevoProductoPage() {
+  const categorias = await prisma.categoria.findMany({
+    orderBy: { orden: "asc" },
+  });
+
   return (
     <main className="min-h-screen flex-1 bg-cream px-4 py-8 sm:px-8">
       <div className="mx-auto max-w-lg">
@@ -17,7 +22,7 @@ export default function NuevoProductoPage() {
         </h1>
 
         <div className="mt-6 rounded-3xl bg-white p-6 ring-1 ring-blush">
-          <FormularioProducto />
+          <FormularioProducto categorias={categorias} />
         </div>
       </div>
     </main>

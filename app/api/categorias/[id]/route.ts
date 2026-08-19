@@ -6,23 +6,6 @@ function noAutorizado(request: NextRequest) {
   return session?.value !== "authenticated";
 }
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  const { id } = await params;
-  const producto = await prisma.producto.findUnique({ where: { id } });
-
-  if (!producto) {
-    return NextResponse.json(
-      { error: "Producto no encontrado" },
-      { status: 404 }
-    );
-  }
-
-  return NextResponse.json(producto);
-}
-
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -34,19 +17,12 @@ export async function PATCH(
   const { id } = await params;
   const data = await request.json();
 
-  const producto = await prisma.producto.update({
+  const categoria = await prisma.categoria.update({
     where: { id },
-    data: {
-      nombre: data.nombre,
-      descripcion: data.descripcion || null,
-      precio: data.precio !== undefined ? parseFloat(data.precio) : undefined,
-      imagenUrl: data.imagenUrl,
-      disponible: data.disponible,
-      categoriaId: data.categoriaId || null,
-    },
+    data: { nombre: data.nombre },
   });
 
-  return NextResponse.json(producto);
+  return NextResponse.json(categoria);
 }
 
 export async function DELETE(
@@ -58,7 +34,13 @@ export async function DELETE(
   }
 
   const { id } = await params;
-  await prisma.producto.delete({ where: { id } });
+
+  await prisma.producto.updateMany({
+    where: { categoriaId: id },
+    data: { categoriaId: null },
+  });
+
+  await prisma.categoria.delete({ where: { id } });
 
   return NextResponse.json({ success: true });
 }

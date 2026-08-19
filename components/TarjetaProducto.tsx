@@ -6,6 +6,7 @@ type Props = {
   descripcion: string | null;
   precio: number;
   imagenUrl: string;
+  categoriaNombre?: string;
 };
 
 export default function TarjetaProducto({
@@ -13,6 +14,7 @@ export default function TarjetaProducto({
   descripcion,
   precio,
   imagenUrl,
+  categoriaNombre,
 }: Props) {
   return (
     <div className="group flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-blush transition hover:shadow-md">
@@ -25,7 +27,15 @@ export default function TarjetaProducto({
           sizes="(max-width: 768px) 50vw, 25vw"
         />
       </div>
-      <div className="flex flex-1 flex-col gap-2 p-4">
+
+      <div className="mx-4 mt-3 border-t-2 border-dashed border-blush" />
+
+      <div className="flex flex-1 flex-col gap-1.5 p-4 pt-3">
+        {categoriaNombre && (
+          <span className="font-heading text-xs font-bold uppercase tracking-wider text-gold">
+            {categoriaNombre}
+          </span>
+        )}
         <h3 className="font-heading text-lg font-semibold leading-tight text-chocolate">
           {nombre}
         </h3>

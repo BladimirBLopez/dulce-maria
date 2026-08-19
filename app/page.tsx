@@ -1,17 +1,31 @@
 import { prisma } from "@/lib/prisma";
 import TarjetaProducto from "@/components/TarjetaProducto";
+import FiltroCategorias from "@/components/FiltroCategorias";
 
 export const revalidate = 0;
 
-export default async function Home() {
-  const productos = await prisma.producto.findMany({
-    where: { disponible: true },
-    orderBy: { createdAt: "desc" },
-  });
+type Props = {
+  searchParams: Promise<{ categoria?: string }>;
+};
+
+export default async function Home({ searchParams }: Props) {
+  const { categoria } = await searchParams;
+
+  const [productos, categorias] = await Promise.all([
+    prisma.producto.findMany({
+      where: {
+        disponible: true,
+        ...(categoria ? { categoriaId: categoria } : {}),
+      },
+      include: { categoria: true },
+      orderBy: { createdAt: "desc" },
+    }),
+    prisma.categoria.findMany({ orderBy: { orden: "asc" } }),
+  ]);
 
   return (
     <main className="flex-1">
-      <section className="relative overflow-hidden px-6 pb-12 pt-16 text-center sm:pt-24">
+      <section className="relative overflow-hidden px-6 pb-8 pt-16 text-center sm:pt-24">
         <p className="font-heading text-sm font-semibold uppercase tracking-[0.3em] text-gold">
           Dulces Americanos
         </p>
@@ -24,7 +38,9 @@ export default async function Home() {
         </p>
       </section>
 
-      <section className="px-4 pb-20 sm:px-8">
+      <FiltroCategorias categorias={categorias} categoriaActiva={categoria} />
+
+      <section className="px-4 pb-20 pt-6 sm:px-8">
         {productos.length === 0 ? (
           <div className="mx-auto max-w-md rounded-3xl bg-white/60 p-10 text-center ring-1 ring-blush">
             <p className="font-heading text-lg text-chocolate-soft">
@@ -40,6 +56,7 @@ export default async function Home() {
                 descripcion={producto.descripcion}
                 precio={producto.precio}
                 imagenUrl={producto.imagenUrl}
+                categoriaNombre={producto.categoria?.nombre}
               />
             ))}
           </div>

@@ -8,6 +8,7 @@ export const revalidate = 0;
 
 export default async function AdminPage() {
   const productos = await prisma.producto.findMany({
+    include: { categoria: true },
     orderBy: { createdAt: "desc" },
   });
 
@@ -24,6 +25,12 @@ export default async function AdminPage() {
             </h1>
           </div>
           <div className="flex items-center gap-2">
+            <Link
+              href="/admin/categorias"
+              className="rounded-full bg-white px-4 py-2 font-heading text-sm font-semibold text-chocolate-soft ring-1 ring-blush transition hover:bg-cream-soft"
+            >
+              Categorías
+            </Link>
             <a
               href="/"
               target="_blank"
@@ -70,6 +77,7 @@ export default async function AdminPage() {
                 </p>
                 <p className="font-body text-sm text-chocolate-soft">
                   Bs {producto.precio.toFixed(2)}
+                  {producto.categoria && ` · ${producto.categoria.nombre}`}
                   {!producto.disponible && " · Oculto"}
                 </p>
               </div>
