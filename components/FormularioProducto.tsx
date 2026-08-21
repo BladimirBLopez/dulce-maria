@@ -143,18 +143,36 @@ export default function FormularioProducto({ producto, categorias }: Props) {
           onChange={(e) => setDisponible(e.target.checked)}
           className="h-5 w-5 rounded border-blush text-candy-pink focus:ring-candy-pink"
         />
-        Disponible en el catálogo
+        Mostrar en el catálogo
       </label>
 
-      <label className="flex items-center gap-2 font-heading text-sm font-semibold text-chocolate-soft">
-        <input
-          type="checkbox"
-          checked={agotado}
-          onChange={(e) => setAgotado(e.target.checked)}
-          className="h-5 w-5 rounded border-blush text-candy-pink focus:ring-candy-pink"
-        />
-        Agotado
-      </label>
+      <div>
+        <p className="font-heading text-sm font-semibold text-chocolate-soft">
+          Estado de stock
+        </p>
+        <div className="mt-2 flex gap-4">
+          <label className="flex items-center gap-2 font-body text-sm text-chocolate">
+            <input
+              type="radio"
+              name="stock"
+              checked={!agotado}
+              onChange={() => setAgotado(false)}
+              className="h-4 w-4 text-candy-pink focus:ring-candy-pink"
+            />
+            En stock
+          </label>
+          <label className="flex items-center gap-2 font-body text-sm text-chocolate">
+            <input
+              type="radio"
+              name="stock"
+              checked={agotado}
+              onChange={() => setAgotado(true)}
+              className="h-4 w-4 text-candy-pink focus:ring-candy-pink"
+            />
+            Agotado
+          </label>
+        </div>
+      </div>
 
       <label className="flex items-center gap-2 font-heading text-sm font-semibold text-chocolate-soft">
         <input
