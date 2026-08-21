@@ -16,6 +16,8 @@ model Producto {
   precio       Float
   imagenUrl    String
   disponible   Boolean  @default(true)
+  agotado      Boolean  @default(false)
+  enOferta     Boolean  @default(false)
   categoriaId  String?
   categoria    Categoria? @relation(fields: [categoriaId], references: [id])
   createdAt    DateTime @default(now())

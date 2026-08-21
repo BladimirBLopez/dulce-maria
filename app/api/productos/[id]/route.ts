@@ -42,6 +42,8 @@ export async function PATCH(
       precio: data.precio !== undefined ? parseFloat(data.precio) : undefined,
       imagenUrl: data.imagenUrl,
       disponible: data.disponible,
+      agotado: data.agotado,
+      enOferta: data.enOferta,
       categoriaId: data.categoriaId || null,
     },
   });

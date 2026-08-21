@@ -16,6 +16,8 @@ type Producto = {
   imagenUrl: string;
   categoria: Categoria | null;
   createdAt: Date | string;
+  agotado: boolean;
+  enOferta: boolean;
 };
 
 const SIETE_DIAS_MS = 7 * 24 * 60 * 60 * 1000;
@@ -113,6 +115,8 @@ export default function Catalogo({ productos, categorias, mostrarPrecios }: Prop
                 categoriaNombre={producto.categoria?.nombre}
                 esNuevo={esProductoNuevo(producto.createdAt)}
                 mostrarPrecio={mostrarPrecios}
+                agotado={producto.agotado}
+                enOferta={producto.enOferta}
               />
             ))}
           </div>

@@ -11,6 +11,8 @@ type Producto = {
   precio: number;
   imagenUrl: string;
   disponible: boolean;
+  agotado: boolean;
+  enOferta: boolean;
   categoriaId: string | null;
 };
 
@@ -33,6 +35,8 @@ export default function FormularioProducto({ producto, categorias }: Props) {
   const [precio, setPrecio] = useState(producto?.precio?.toString() ?? "");
   const [imagenUrl, setImagenUrl] = useState(producto?.imagenUrl ?? "");
   const [disponible, setDisponible] = useState(producto?.disponible ?? true);
+  const [agotado, setAgotado] = useState(producto?.agotado ?? false);
+  const [enOferta, setEnOferta] = useState(producto?.enOferta ?? false);
   const [categoriaId, setCategoriaId] = useState(producto?.categoriaId ?? "");
   const [guardando, setGuardando] = useState(false);
   const [error, setError] = useState("");
@@ -62,6 +66,8 @@ export default function FormularioProducto({ producto, categorias }: Props) {
         precio,
         imagenUrl,
         disponible,
+        agotado,
+        enOferta,
         categoriaId: categoriaId || null,
       }),
     });
@@ -138,6 +144,26 @@ export default function FormularioProducto({ producto, categorias }: Props) {
           className="h-5 w-5 rounded border-blush text-candy-pink focus:ring-candy-pink"
         />
         Disponible en el catálogo
+      </label>
+
+      <label className="flex items-center gap-2 font-heading text-sm font-semibold text-chocolate-soft">
+        <input
+          type="checkbox"
+          checked={agotado}
+          onChange={(e) => setAgotado(e.target.checked)}
+          className="h-5 w-5 rounded border-blush text-candy-pink focus:ring-candy-pink"
+        />
+        Agotado
+      </label>
+
+      <label className="flex items-center gap-2 font-heading text-sm font-semibold text-chocolate-soft">
+        <input
+          type="checkbox"
+          checked={enOferta}
+          onChange={(e) => setEnOferta(e.target.checked)}
+          className="h-5 w-5 rounded border-blush text-candy-pink focus:ring-candy-pink"
+        />
+        En oferta
       </label>
 
       {error && (

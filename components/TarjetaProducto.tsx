@@ -11,6 +11,8 @@ type Props = {
   categoriaNombre?: string;
   esNuevo?: boolean;
   mostrarPrecio?: boolean;
+  agotado?: boolean;
+  enOferta?: boolean;
 };
 
 export default function TarjetaProducto({
@@ -22,6 +24,8 @@ export default function TarjetaProducto({
   categoriaNombre,
   esNuevo,
   mostrarPrecio = true,
+  agotado = false,
+  enOferta = false,
 }: Props) {
   return (
     <div className="group flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-blush transition hover:-translate-y-0.5 hover:shadow-lg">
@@ -33,15 +37,29 @@ export default function TarjetaProducto({
           src={imagenUrl}
           alt={nombre}
           fill
-          className="object-cover transition duration-300 group-hover:scale-105"
+          className={`object-cover transition duration-300 group-hover:scale-105 ${
+            agotado ? "grayscale opacity-60" : ""
+          }`}
           sizes="(max-width: 768px) 50vw, 25vw"
         />
 
-        {esNuevo && (
-          <span className="absolute left-2 top-2 rounded-full bg-gold px-2.5 py-1 font-heading text-[10px] font-bold uppercase tracking-wide text-white shadow">
-            Nuevo
-          </span>
-        )}
+        <div className="absolute left-2 top-2 flex flex-col gap-1">
+          {agotado && (
+            <span className="rounded-full bg-chocolate-soft px-2.5 py-1 font-heading text-[10px] font-bold uppercase tracking-wide text-white shadow">
+              Agotado
+            </span>
+          )}
+          {!agotado && enOferta && (
+            <span className="rounded-full bg-candy-pink-dark px-2.5 py-1 font-heading text-[10px] font-bold uppercase tracking-wide text-white shadow">
+              Oferta
+            </span>
+          )}
+          {!agotado && esNuevo && (
+            <span className="rounded-full bg-gold px-2.5 py-1 font-heading text-[10px] font-bold uppercase tracking-wide text-white shadow">
+              Nuevo
+            </span>
+          )}
+        </div>
 
         {mostrarPrecio && (
           <span className="absolute bottom-2 right-2 rounded-full bg-candy-pink px-3 py-1.5 font-heading text-sm font-bold text-white shadow-md">

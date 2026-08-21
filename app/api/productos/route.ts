@@ -23,6 +23,8 @@ export async function POST(request: NextRequest) {
       precio: parseFloat(data.precio),
       imagenUrl: data.imagenUrl,
       disponible: data.disponible ?? true,
+      agotado: data.agotado ?? false,
+      enOferta: data.enOferta ?? false,
       categoriaId: data.categoriaId || null,
     },
   });
