@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import BotonWhatsApp from "./BotonWhatsApp";
+import { formatearPrecio } from "@/lib/formato";
 
 type Props = {
   id: string;
@@ -63,7 +64,7 @@ export default function TarjetaProducto({
 
         {mostrarPrecio && (
           <span className="absolute bottom-2 right-2 rounded-full bg-candy-pink px-3 py-1.5 font-heading text-sm font-bold text-white shadow-md">
-            Bs {precio.toFixed(2)}
+            Bs {formatearPrecio(precio)}
           </span>
         )}
       </Link>

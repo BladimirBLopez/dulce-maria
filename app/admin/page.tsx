@@ -3,6 +3,7 @@ import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import BotonCerrarSesion from "@/components/BotonCerrarSesion";
 import BotonEliminarProducto from "@/components/BotonEliminarProducto";
+import { formatearPrecio } from "@/lib/formato";
 import ToggleMostrarPrecios from "@/components/ToggleMostrarPrecios";
 
 export const revalidate = 0;
@@ -84,7 +85,7 @@ export default async function AdminPage() {
                     {producto.nombre}
                   </p>
                   <p className="font-body text-sm text-chocolate-soft">
-                    Bs {producto.precio.toFixed(2)}
+                    Bs {formatearPrecio(producto.precio)}
                     {producto.categoria && ` · ${producto.categoria.nombre}`}
                     {!producto.disponible && " · Oculto"}
                   </p>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import BotonWhatsApp from "@/components/BotonWhatsApp";
+import { formatearPrecio } from "@/lib/formato";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -83,7 +84,7 @@ export default async function ProductoPage({ params }: Props) {
 
             {mostrarPrecios && (
               <span className="mt-2 font-heading text-3xl font-bold text-candy-pink-dark">
-                Bs {producto.precio.toFixed(2)}
+                Bs {formatearPrecio(producto.precio)}
               </span>
             )}
 
